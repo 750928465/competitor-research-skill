@@ -1,0 +1,262 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Competitor Report Schema",
+  "description": "Schema for structured competitor analysis report data",
+  "type": "object",
+  "required": [
+    "title",
+    "research_objective",
+    "product_definition",
+    "major_vendors",
+    "product_form_summary",
+    "core_capability_comparison",
+    "differentiation_analysis",
+    "suitable_scenarios",
+    "conclusion",
+    "references"
+  ],
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Report title"
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Report generation timestamp"
+    },
+    "research_objective": {
+      "type": "object",
+      "properties": {
+        "objective": {
+          "type": "string",
+          "description": "Research objective"
+        },
+        "product_domain": {
+          "type": "string",
+          "description": "Product domain being analyzed"
+        },
+        "scope": {
+          "type": "string",
+          "description": "Scope of the research"
+        },
+        "time_range": {
+          "type": "string",
+          "description": "Time range of the research"
+        }
+      }
+    },
+    "product_definition": {
+      "type": "object",
+      "properties": {
+        "definition": {
+          "type": "string",
+          "description": "Product category definition"
+        },
+        "core_value": {
+          "type": "string",
+          "description": "Core value proposition"
+        },
+        "problems_solved": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Problems this category of products solves"
+        },
+        "in_scope": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "What's included in the analysis"
+        },
+        "out_of_scope": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "What's not included in the analysis"
+        }
+      }
+    },
+    "major_vendors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "vendor_name": {
+            "type": "string"
+          },
+          "product_name": {
+            "type": "string"
+          },
+          "website": {
+            "type": "string",
+            "format": "uri"
+          },
+          "launch_date": {
+            "type": "string"
+          },
+          "market_position": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "List of major vendors and products"
+    },
+    "product_form_summary": {
+      "type": "object",
+      "properties": {
+        "product_forms": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Main product forms (SaaS, mobile, desktop, etc.)"
+        },
+        "business_models": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Common business models"
+        },
+        "market_segments": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Target market segments"
+        }
+      }
+    },
+    "core_capability_comparison": {
+      "type": "object",
+      "properties": {
+        "comparison_dimensions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Feature dimensions being compared"
+        },
+        "product_matrix": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "feature": {
+                "type": "string"
+              },
+              "products": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "differentiation_analysis": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "product_name": {
+            "type": "string"
+          },
+          "core_competencies": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "unique_features": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "market_positioning": {
+            "type": "string"
+          },
+          "technical_approach": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "Differentiation analysis for each product"
+    },
+    "suitable_scenarios": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "scenario": {
+            "type": "string"
+          },
+          "recommended_products": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "reason": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "Suitable scenarios for each product"
+    },
+    "conclusion": {
+      "type": "object",
+      "properties": {
+        "market_overview": {
+          "type": "string",
+          "description": "Overall market landscape summary"
+        },
+        "key_trends": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Key market trends"
+        },
+        "selection_criteria": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Key factors for product selection"
+        },
+        "future_outlook": {
+          "type": "string",
+          "description": "Future outlook"
+        }
+      }
+    },
+    "references": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "accessed_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "description": "Reference sources"
+    }
+  }
+}

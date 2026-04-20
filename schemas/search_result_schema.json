@@ -1,0 +1,240 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Search Result Schema (Evidence-First)",
+  "description": "Schema for structured competitor research search results with verification status and evidence tracking",
+  "type": "object",
+  "required": ["query", "products", "excluded_products", "metadata"],
+  "properties": {
+    "query": {
+      "type": "string",
+      "description": "The original user query"
+    },
+    "products": {
+      "type": "array",
+      "description": "List of verified competitor products (verified or partial status only)",
+      "items": {
+        "type": "object",
+        "required": ["name", "website", "verification_status", "verification_evidence"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Product name (must have official evidence)"
+          },
+          "vendor": {
+            "type": "string",
+            "description": "Company/vendor name"
+          },
+          "website": {
+            "type": "string",
+            "format": "uri",
+            "description": "Official website URL (required)"
+          },
+          "verification_status": {
+            "type": "string",
+            "enum": ["verified", "partial", "unclear"],
+            "description": "Verification status: verified (multiple official sources), partial (some evidence), unclear (insufficient evidence)"
+          },
+          "verification_evidence": {
+            "type": "array",
+            "description": "List of evidence sources for verification",
+            "items": {
+              "type": "object",
+              "required": ["source_type", "url", "title", "accessed_at", "evidence_type"],
+              "properties": {
+                "source_type": {
+                  "type": "string",
+                  "enum": ["official", "authoritative_media", "review_platform", "other"],
+                  "description": "Type of source"
+                },
+                "url": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "Source URL"
+                },
+                "title": {
+                  "type": "string",
+                  "description": "Source title"
+                },
+                "accessed_at": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "Access timestamp"
+                },
+                "evidence_type": {
+                  "type": "string",
+                  "description": "Type of evidence from this source"
+                }
+              }
+            }
+          },
+          "launch_date": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "string"
+              },
+              "source": {
+                "type": "string",
+                "format": "uri"
+              },
+              "confidence": {
+                "type": "string",
+                "enum": ["high", "medium", "low"]
+              }
+            }
+          },
+          "core_features": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["feature", "source", "confidence", "is_official"],
+              "properties": {
+                "feature": {
+                  "type": "string"
+                },
+                "source": {
+                  "type": "string",
+                  "format": "uri"
+                },
+                "confidence": {
+                  "type": "string",
+                  "enum": ["high", "medium", "low"]
+                },
+                "is_official": {
+                  "type": "boolean"
+                }
+              }
+            },
+            "description": "List of core features with evidence"
+          },
+          "key_highlights": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["highlight", "source", "confidence"],
+              "properties": {
+                "highlight": {
+                  "type": "string"
+                },
+                "source": {
+                  "type": "string",
+                  "format": "uri"
+                },
+                "confidence": {
+                  "type": "string",
+                  "enum": ["high", "medium", "low"]
+                }
+              }
+            },
+            "description": "Key differentiators with evidence"
+          },
+          "pricing": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "string"
+              },
+              "source": {
+                "type": "string",
+                "format": "uri"
+              },
+              "confidence": {
+                "type": "string",
+                "enum": ["high", "medium", "low"]
+              }
+            }
+          },
+          "target_users": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "string"
+              },
+              "source": {
+                "type": "string",
+                "format": "uri"
+              },
+              "confidence": {
+                "type": "string",
+                "enum": ["high", "medium", "low"]
+              }
+            }
+          },
+          "uncertain_fields": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of fields with uncertain information"
+          },
+          "missing_fields": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of fields with no information found"
+          },
+          "notes": {
+            "type": "string",
+            "description": "Additional notes"
+          }
+        }
+      }
+    },
+    "excluded_products": {
+      "type": "array",
+      "description": "List of products excluded due to insufficient evidence",
+      "items": {
+        "type": "object",
+        "required": ["name", "reason", "evidence_checked"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Excluded product name"
+          },
+          "reason": {
+            "type": "string",
+            "description": "Reason for exclusion (e.g., no official website, insufficient evidence)"
+          },
+          "evidence_checked": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of evidence sources checked"
+          }
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "required": ["total_products_verified", "total_products_excluded", "search_queries_used", "official_sources_collected", "last_updated"],
+      "properties": {
+        "total_products_verified": {
+          "type": "integer",
+          "description": "Number of verified/partial products"
+        },
+        "total_products_excluded": {
+          "type": "integer",
+          "description": "Number of excluded products"
+        },
+        "search_queries_used": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "List of search queries used"
+        },
+        "official_sources_collected": {
+          "type": "integer",
+          "description": "Number of official sources collected"
+        },
+        "last_updated": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last update timestamp"
+        }
+      }
+    }
+  }
+}

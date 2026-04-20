@@ -1,0 +1,32 @@
+# 运行时配置模板（不含真实密钥）
+# 请复制此文件为 runtime.local.yaml 并填入真实参数
+
+# API 密钥配置
+api_keys:
+  # Tavily API 密钥（用于搜索）
+  # 获取地址: https://tavily.com/
+  tavily_api_key: "YOUR_TAVILY_API_KEY_HERE"
+
+# 搜索配置
+search:
+  # 最大搜索结果数
+  max_results: 10
+  # 搜索深度: basic 或 advanced
+  search_depth: "basic"
+  # 是否包含答案摘要
+  include_answer: true
+  # 是否包含原始内容
+  include_raw_content: false
+
+# 代理配置（可选）
+proxy:
+  enabled: false
+  http_proxy: ""
+  https_proxy: ""
+
+# 调试配置
+debug:
+  # 是否启用调试模式
+  enabled: false
+  # 日志级别: INFO, WARNING, ERROR
+  log_level: "INFO"

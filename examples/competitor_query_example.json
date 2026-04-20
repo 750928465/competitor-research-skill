@@ -1,0 +1,17 @@
+{
+  "query": "AI 邮件助手",
+  "description": "分析 AI 邮件助手产品领域的主要竞品",
+  "options": {
+    "focus_geography": "global",
+    "time_range": "last_2_years",
+    "include_pricing": true,
+    "include_user_reviews": true
+  },
+  "specific_interests": [
+    "主要厂商和产品",
+    "核心功能对比",
+    "AI 能力差异",
+    "定价模式",
+    "市场定位"
+  ]
+}

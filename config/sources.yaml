@@ -1,0 +1,110 @@
+# 推荐搜索来源配置
+# 存储推荐查询网站、来源白名单和默认搜索意图
+
+# 来源白名单（按可信度分级）
+source_whitelist:
+  # 一级来源：官方来源（最高可信度）
+  tier1_official:
+    - "*.google.com"
+    - "*.microsoft.com"
+    - "*.anthropic.com"
+    - "*.grammarly.com"
+    - "*.jasper.ai"
+    - "*.copy.ai"
+    - "*.notion.so"
+    - "*.openai.com"
+    - "*.zhipuai.cn"
+    - "*.baidu.com"
+    - "*.alibaba.com"
+    - "*.bytedance.com"
+    - "*.metaso.cn"
+
+  # 二级来源：权威科技媒体
+  tier2_authoritative_media:
+    - "techcrunch.com"
+    - "theverge.com"
+    - "wired.com"
+    - "*.36kr.com"
+    - "*.ifanr.com"
+    - "*.infoq.cn"
+
+  # 三级来源：评测平台
+  tier3_review_platforms:
+    - "g2.com"
+    - "capterra.com"
+    - "trustpilot.com"
+    - "*.zhihu.com"
+
+  # 四级来源：其他（仅作补充）
+  tier4_other:
+    - "*.medium.com"
+    - "*.substack.com"
+
+# 推荐搜索引擎/查询网站
+search_engines:
+  primary:
+    - name: "Tavily"
+      type: "api"
+      description: "专为 AI 应用设计的搜索 API"
+      recommended: true
+    - name: "Google"
+      type: "web"
+      description: "通用搜索引擎"
+      recommended: false
+  fallback:
+    - name: "Claude Code WebSearch"
+      type: "builtin"
+      description: "Claude Code 内置搜索"
+
+# 默认搜索意图模板
+default_search_intents:
+  # 产品类别搜索
+  product_search:
+    - template: "{product_category} 官网"
+      priority: 1
+      evidence_type: "official_website"
+    - template: "{product_category} official website"
+      priority: 2
+      evidence_type: "official_website"
+    - template: "{product_category} 官方文档"
+      priority: 3
+      evidence_type: "official_docs"
+
+  # 厂商搜索
+  vendor_search:
+    - template: "{vendor_name} {product_category} 官网"
+      priority: 1
+      evidence_type: "vendor_official"
+    - template: "{vendor_name} {product_category} official"
+      priority: 2
+      evidence_type: "vendor_official"
+
+  # 功能对比搜索
+  feature_comparison:
+    - template: "{product_category} 功能对比"
+      priority: 1
+      evidence_type: "comparison"
+    - template: "{product_category} G2 review"
+      priority: 2
+      evidence_type: "third_party_review"
+
+  # 最新动态搜索
+  latest_updates:
+    - template: "{product_category} 2024 2025 发布"
+      priority: 1
+      evidence_type: "news"
+    - template: "{product_category} launched 2025"
+      priority: 2
+      evidence_type: "news"
+
+# 产品类别关键词映射
+category_keywords:
+  ai_email_assistant:
+    zh: ["AI 邮件助手", "智能邮件", "邮件写作助手"]
+    en: ["AI email assistant", "email writer AI", "smart email"]
+  ai_writing:
+    zh: ["AI 写作工具", "智能写作", "AI 写作助手"]
+    en: ["AI writing tool", "AI writer", "content generator"]
+  project_management:
+    zh: ["项目管理软件", "项目管理工具", "协作工具"]
+    en: ["project management software", "PM tool", "collaboration tool"]
