@@ -1,6 +1,8 @@
 # Competitor Research Skill
 
 > An AI-powered competitive analysis tool that automatically generates professional competitor research reports using Tavily Search API and LLM.
+> <img width="1024" height="559" alt="image" src="https://github.com/user-attachments/assets/ad7d61ab-2731-455d-b171-1b6c376f9d05" />
+
 
 [English](#english) | [中文](#中文)
 
