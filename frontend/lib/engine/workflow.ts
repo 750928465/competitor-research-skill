@@ -173,16 +173,21 @@ export class ResearchEngine {
     // 场景3：产品市场竞争分析 - 用户想了解某个产品的竞争情况
     else if (/竞争|对手|竞品|vs|对比|比较|类似|同类/i.test(query)) {
       intent = 'product_competition';
-      // 提取产品名
+      // 提取产品名（去除查询中的分析类后缀词）
       const productMatch = query.match(/(\S+)\s*(的|与|和|同)\s*(竞争|对手|竞品|类似|同类)/);
       if (productMatch) {
         targetProduct = productMatch[1];
       } else {
         // 提取 "产品A vs 产品B" 或 "产品A 对比" 的情况
-        const vsMatch = query.match(/(\S+)\s*(vs|对比|比较|和|与)/i);
+        const vsMatch = query.match(/(.+?)\s*(vs|对比|比较|和|与)\s*/i);
         if (vsMatch) {
-          targetProduct = vsMatch[1];
+          targetProduct = vsMatch[1].trim();
         }
+      }
+      // 去除产品名末尾的修饰词（功能、特性、优势等）
+      targetProduct = targetProduct.replace(/[，。、]*\s*(功能|特性|优势|特点|性能|价格|评测|测评|分析|推荐|排行|排名|测评|介绍|简介|详解|全面|详细|深度|最新|最好|热门|主流|知名|十大)*\s*$/, '').trim();
+      if (!targetProduct) {
+        targetProduct = query;
       }
     }
     // 场景2：单一产品深度研究 - 只提到某个产品名，没有明确的对比/市场关键词
@@ -311,13 +316,15 @@ export class ResearchEngine {
 
       // 场景3：产品市场竞争分析 - 先了解产品属性，再搜索竞品
       case 'product_competition':
+        // 第一阶段：了解产品本身
         queries.push(`${product} 是什么 what is`);
-        queries.push(`${product} 产品定位 positioning`);
+        queries.push(`${product} 产品介绍 核心功能`);
+        queries.push(`${product} 官网 official website`);
+        // 第二阶段：搜索竞品和对比
         queries.push(`${product} 竞争对手 competitors alternatives`);
         queries.push(`${product} 类似产品 similar products`);
         queries.push(`${product} vs 对比 comparison`);
         queries.push(`${product} 替代方案 alternatives`);
-        queries.push(`${product} 市场竞争 competition analysis`);
         break;
 
       // 原有场景

@@ -442,7 +442,7 @@ export default function Home() {
                 {!tavilyKey && (
                   <div className="flex items-center justify-center gap-2 p-3 bg-amber-50 rounded-xl border border-amber-200 mb-4">
                     <span>⚠️</span>
-                    <span className="text-sm text-amber-700">请配置 Tavily API Key（鼠标悬停左侧边栏）</span>
+                    <span className="text-sm text-amber-700">请点击左上角「配置 API Key」完成配置</span>
                   </div>
                 )}
               </motion.div>
